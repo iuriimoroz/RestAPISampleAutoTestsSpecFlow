@@ -26,9 +26,12 @@ public class SingleUserEndpointSteps
 
         var request = new RestRequest(endpointPath, Method.Get);
         _apiResponse = ApiClient.SendRequest(_baseUrl, request);
-        _userData = ApiClient.ParseResponseContent(_apiResponse);
-    }
 
+        if ((int)_apiResponse.StatusCode != 404)
+        {
+            _userData = ApiClient.ParseResponseContent(_apiResponse);
+        }
+    }
 
     [Then(@"the response status code should be (.*)")]
     public void ThenTheResponseStatusCodeShouldBe(int expectedStatusCode)
@@ -77,5 +80,12 @@ public class SingleUserEndpointSteps
     {
         Assert.That((int)_userData["data"]["id"], Is.EqualTo(expectedId),
             $"Expected user ID to be {expectedId}, but got {(int)_userData["data"]["id"]}.");
+    }
+
+    [Then(@"the response content should indicate ""(.*)""")]
+    public void ThenTheResponseContentShouldIndicate(string expectedMessage)
+    {
+        Assert.That(_apiResponse.Content, Does.Contain(expectedMessage),
+            $"Expected the response content to contain '{expectedMessage}', but got {_apiResponse.Content}.");
     }
 }
