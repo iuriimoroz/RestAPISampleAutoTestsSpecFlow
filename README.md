@@ -30,7 +30,7 @@ This project demonstrates automated REST API testing using **SpecFlow**, **NUnit
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repository/rest-api-testing.git
+   git clone https://github.com/RestAPISampleAutoTestsSpecFlow/rest-api-testing.git
    cd rest-api-testing
    ```
 2. Restore NuGet packages:
